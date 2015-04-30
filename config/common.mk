@@ -81,7 +81,7 @@ PRODUCT_PACKAGES += \
 
 # AudioFX
 PRODUCT_PACKAGES += \
-    AudioFX
+    Viper4Android
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
