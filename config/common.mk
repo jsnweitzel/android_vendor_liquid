@@ -25,25 +25,25 @@ PRODUCT_PROPERTY_OVERRIDES += \\
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/slim/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/slim/prebuilt/common/bin/50-slim.sh:system/addon.d/50-slim.sh
+    vendor/liquid/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/liquid/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/liquid/prebuilt/common/bin/50-liquid.sh:system/addon.d/50-liquid.sh
 
 # Signature compatibility validation
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
+    vendor/liquid/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
 
-# SLIM-specific init file
+# Liquid-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.local.rc:root/init.slim.rc
+    vendor/liquid/prebuilt/common/etc/init.local.rc:root/init.liquid.rc
 
 # SELinux filesystem labels
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
+    vendor/liquid/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
+    vendor/liquid/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -51,13 +51,13 @@ PRODUCT_COPY_FILES += \
 
 # Don't export PS1 in /system/etc/mkshrc.
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/mkshrc:system/etc/mkshrc \
-    vendor/slim/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
+    vendor/liquid/prebuilt/common/etc/mkshrc:system/etc/mkshrc \
+    vendor/liquid/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
 
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
-    vendor/slim/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
-    vendor/slim/prebuilt/common/bin/sysinit:system/bin/sysinit
+    vendor/liquid/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
+    vendor/liquid/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
+    vendor/liquid/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 # debug packages
 ifneq ($(TARGET_BUILD_VARIENT),user)
@@ -67,7 +67,7 @@ endif
 
 # TWRP
 ifeq ($(WITH_TWRP),true)
-include vendor/slim/config/twrp.mk
+include vendor/liquid/config/twrp.mk
 endif
 
 # Optional packages
@@ -87,19 +87,17 @@ PRODUCT_PACKAGES += \
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
-    SlimBootAnimation \
-    SlimLauncher \
-    SlimWallpaperResizer \
-    SlimWallpapers \
+    LiquidBootAnimation \
+    LiquidLauncher \
+    LiquidWallpaperResizer \
+    LiquidWallpapers \
     LatinIME \
     BluetoothExt \
     WallpaperPicker
 
-#    SlimFileManager removed until updated
-
-ifneq ($(DISABLE_SLIM_FRAMEWORK), true)
-## Slim Framework
-include frameworks/slim/slim_framework.mk
+ifneq ($(DISABLE_LIQUID_FRAMEWORK), true)
+## Liquid Framework
+include frameworks/liquid/liquid_framework.mk
 endif
 
 ## Don't compile SystemUITests
@@ -152,46 +150,46 @@ PRODUCT_BOOT_JARS += \
     telephony-ext
 
 PRODUCT_PACKAGE_OVERLAYS += \
-    vendor/slim/overlay/common \
-    vendor/slim/overlay/dictionaries
+    vendor/liquid/overlay/common \
+    vendor/liquid/overlay/dictionaries
 
 # Versioning System
-# Slim version.
+# Liquid version.
 PRODUCT_VERSION_MAJOR = $(PLATFORM_VERSION)
 PRODUCT_VERSION_MINOR = build
 PRODUCT_VERSION_MAINTENANCE = 0.1
-ifdef SLIM_BUILD_EXTRA
-    SLIM_POSTFIX := -$(SLIM_BUILD_EXTRA)
+ifdef LIQUID_BUILD_EXTRA
+    LIQUID_POSTFIX := -$(LIQUID_BUILD_EXTRA)
 endif
-ifndef SLIM_BUILD_TYPE
-    SLIM_BUILD_TYPE := UNOFFICIAL
-endif
-
-ifeq ($(SLIM_BUILD_TYPE),DM)
-    SLIM_POSTFIX := -$(shell date +"%Y%m%d")
+ifndef LIQUID_BUILD_TYPE
+    LIQUID_BUILD_TYPE := UNOFFICIAL
 endif
 
-ifndef SLIM_POSTFIX
-    SLIM_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
+ifeq ($(LIQUID_BUILD_TYPE),DM)
+    LIQUID_POSTFIX := -$(shell date +"%Y%m%d")
+endif
+
+ifndef LIQUID_POSTFIX
+    LIQUID_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
 endif
 
 # Set all versions
-SLIM_VERSION := $(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(SLIM_BUILD_TYPE)$(SLIM_POSTFIX)
-SLIM_MOD_VERSION := Slim-$(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(SLIM_BUILD_TYPE)$(SLIM_POSTFIX)
+LIQUID_VERSION := $(LIQUID_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(LIQUID_BUILD_TYPE)$(LIQUID_POSTFIX)
+LIQUID_MOD_VERSION := Liquid-$(LIQUID_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(LIQUID_BUILD_TYPE)$(LIQUID_POSTFIX)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
-    slim.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE) \
-    ro.slim.version=$(SLIM_MOD_VERSION) \
-    ro.modversion=$(SLIM_MOD_VERSION) \
-    ro.slim.buildtype=$(SLIM_BUILD_TYPE)
+    liquid.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE) \
+    ro.liquid.version=$(LIQUID_MOD_VERSION) \
+    ro.modversion=$(LIQUID_MOD_VERSION) \
+    ro.liquid.buildtype=$(LIQUID_BUILD_TYPE)
 
-EXTENDED_POST_PROCESS_PROPS := vendor/slim/tools/slim_process_props.py
+EXTENDED_POST_PROCESS_PROPS := vendor/liquid/tools/liquid_process_props.py
 
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-  vendor/slim/build/target/product/security/slim
+  vendor/liquid/build/target/product/security/liquid
 
--include vendor/slim-priv/keys/keys.mk
+-include vendor/liquid-priv/keys/keys.mk
 
 ifeq ($(BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE),)
   PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

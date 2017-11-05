@@ -12,6 +12,6 @@
 
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
-LOCAL_MODULE := SlimWallpaperResizer
+LOCAL_MODULE := LiquidWallpaperResizer
 
-WALLPAPER := $(shell $(ANDROID_BUILD_TOP)/vendor/slim/wallpaper/generate-wallpaper.sh)
+WALLPAPER := $(shell $(ANDROID_BUILD_TOP)/vendor/liquid/wallpaper/generate-wallpaper.sh)
