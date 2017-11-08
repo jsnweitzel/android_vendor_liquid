@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################
-#EXECUTE FROM SLIM ROOT DIRECTORY
+#EXECUTE FROM Liquid ROOT DIRECTORY
 #################################
 
 

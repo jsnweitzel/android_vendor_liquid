@@ -95,10 +95,10 @@ PRODUCT_PACKAGES += \
     BluetoothExt \
     WallpaperPicker
 
-ifneq ($(DISABLE_LIQUID_FRAMEWORK), true)
-## Liquid Framework
-include frameworks/liquid/liquid_framework.mk
-endif
+#ifneq ($(DISABLE_LIQUID_FRAMEWORK), true)
+# Liquid Framework
+#include frameworks/liquid/liquid_framework.mk
+#endif
 
 ## Don't compile SystemUITests
 EXCLUDE_SYSTEMUI_TESTS := true
@@ -112,15 +112,6 @@ PRODUCT_PACKAGES += \
     mkfs.ntfs \
     fsck.ntfs \
     mount.ntfs
-
-# Custom off-mode charger
-ifneq ($(WITH_CM_CHARGER),false)
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    cm_charger_res_images \
-    font_log.png \
-    libhealthd.cm
-endif
 
 # ExFAT support
 WITH_EXFAT ?= true
@@ -186,10 +177,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 EXTENDED_POST_PROCESS_PROPS := vendor/liquid/tools/liquid_process_props.py
 
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-  vendor/liquid/build/target/product/security/liquid
+#PRODUCT_EXTRA_RECOVERY_KEYS += \
+#  vendor/liquid/build/target/product/security/liquid
 
--include vendor/liquid-priv/keys/keys.mk
+#-include vendor/liquid-priv/keys/keys.mk
 
 ifeq ($(BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE),)
   PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
